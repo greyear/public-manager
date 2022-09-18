@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
+import ru.netology.exception.AlreadyExistsException;
 import ru.netology.exception.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,9 +30,18 @@ class ProductRepositoryTest {
 
         Product[] actual = repo.findAll();
         Product[] expected = {testProducts[0], testProducts[1], testProducts[2],
-                              testProducts[3], testProducts[4], testProducts[5],
-                              testProducts[6]};
+                testProducts[3], testProducts[4], testProducts[5],
+                testProducts[6]};
         assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldThrowsAlreadyExistsException() {
+        ProductRepository repo = new ProductRepository();
+        for (Product testProduct : testProducts) {
+            repo.save(testProduct);
+        }
+        assertThrows(AlreadyExistsException.class, () -> repo.save(testProducts[0]));
     }
 
     @Test
@@ -43,7 +53,7 @@ class ProductRepositoryTest {
         repo.removeById(5);
         Product[] actual = repo.findAll();
         Product[] expected = {testProducts[0], testProducts[1], testProducts[2],
-                              testProducts[3], testProducts[5], testProducts[6]};
+                testProducts[3], testProducts[5], testProducts[6]};
         assertArrayEquals(expected, actual);
     }
 

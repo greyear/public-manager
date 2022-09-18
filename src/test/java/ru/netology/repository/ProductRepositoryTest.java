@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
+import ru.netology.exception.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,6 +47,18 @@ class ProductRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void shouldThrowNotFoundException() {
+        ProductRepository repo = new ProductRepository();
+        for (Product testProduct : testProducts) {
+            repo.save(testProduct);
+        }
+        assertThrows(NotFoundException.class, () -> repo.removeById(50));
+    }
 
-
+    @Test
+    public void shouldThrowNotFoundExceptionInEmptyRepo() {
+        ProductRepository repo = new ProductRepository();
+        assertThrows(NotFoundException.class, () -> repo.removeById(50));
+    }
 }

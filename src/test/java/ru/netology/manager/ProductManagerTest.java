@@ -30,20 +30,6 @@ class ProductManagerTest {
     }
 
     @Test
-    public void matchesTest() {
-        ProductManager manager = new ProductManager(repo);
-        Product product = testProducts[0];
-        assertTrue(manager.matches(product, "Lol"));
-    }
-
-    @Test
-    public void noMatchesTest() {
-        ProductManager manager = new ProductManager(repo);
-        Product product = testProducts[0];
-        assertFalse(manager.matches(product, "Lot"));
-    }
-
-    @Test
     public void searchByTest() {
         ProductManager manager = new ProductManager(repo);
         Product[] returned = {testProducts[0], testProducts[1], testProducts[2],

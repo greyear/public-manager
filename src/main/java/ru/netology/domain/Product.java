@@ -1,8 +1,6 @@
 package ru.netology.domain;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 public class Product {
@@ -14,5 +12,9 @@ public class Product {
         this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    public boolean matches(String search) {
+        return name.contains(search);
     }
 }
